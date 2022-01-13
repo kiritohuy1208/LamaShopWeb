@@ -24,9 +24,9 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
     position: relative;
-    background-color: #f5fbfd;
+    //background-color: #f5fbfd;
    // opacity: 0;
-   
+   background-color: whitesmoke;
     &:hover ${Infor}{
         opacity: 1;
         
