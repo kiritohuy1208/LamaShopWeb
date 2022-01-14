@@ -3,6 +3,7 @@ import styled from "styled-components";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import {sliderItems} from "../data";
+import { mobile } from "../responsive";
 const Container = styled.div`
   width: 100%;
   height: 90vh;
@@ -10,6 +11,7 @@ const Container = styled.div`
   position: relative;
   overflow: hidden;
   background-color: whitesmoke;
+  ${mobile({ display:"none" })}
 
 `;
 const Arrow = styled.div`
