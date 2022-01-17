@@ -5,7 +5,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import Badge from "@mui/material/Badge";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import {mobile} from '../responsive';
+import { mobile } from "../responsive";
 const Container = styled.div`
   height: 60px;
   ${mobile({ height: "50px" })}
@@ -37,10 +37,10 @@ const Right = styled.div`
   align-items: center;
   justify-content: flex-end;
   font-weight: bold;
-  ${mobile({ flex: 2,justifyContent: "center" })}
+  ${mobile({ flex: 2, justifyContent: "center" })}
 `;
 const Language = styled.span`
-   ${mobile({ display: "none" })}
+  ${mobile({ display: "none" })}
 `;
 const SearchContainer = styled.div`
   border: 0.5px solid lightgray;
@@ -59,7 +59,7 @@ const MenuItem = styled.div`
   font-size: 14px;
   cursor: pointer;
   margin-left: 25px;
-  ${mobile({ fontSize: "12px",marginLeft:"10px" })}
+  ${mobile({ fontSize: "12px", marginLeft: "10px" })}
 `;
 
 const Navbar = () => {

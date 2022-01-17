@@ -1,25 +1,22 @@
-import React from 'react'
-import styled from 'styled-components';
-import {categories} from "../data";
-import { mobile } from '../responsive';
-import CategoriesItem from './CategoriesItem';
+import React from "react";
+import styled from "styled-components";
+import { categories } from "../data";
+import { mobile } from "../responsive";
+import CategoriesItem from "./CategoriesItem";
 const Container = styled.div`
-    display: flex;
-    padding: 20px;
-    justify-content: space-between;
-    ${mobile({ padding: 0, flexDirection: "column" })}
-
+  display: flex;
+  padding: 20px;
+  justify-content: space-between;
+  ${mobile({ padding: 0, flexDirection: "column" })}
 `;
 const Categories = () => {
-    return (
-        <Container>
-            {
-                categories.map((category)=>(
-                    <CategoriesItem category={category} key={category.id} />
-                ))
-            }
-        </Container>
-    )
-}
+  return (
+    <Container>
+      {categories.map((category) => (
+        <CategoriesItem category={category} key={category.id} />
+      ))}
+    </Container>
+  );
+};
 
-export default Categories
+export default Categories;
