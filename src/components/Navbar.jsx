@@ -6,6 +6,8 @@ import Badge from "@mui/material/Badge";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { mobile } from "../responsive";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 const Container = styled.div`
   height: 60px;
   ${mobile({ height: "50px" })}
@@ -63,6 +65,8 @@ const MenuItem = styled.div`
 `;
 
 const Navbar = () => {
+  const quantity = useSelector((state) => state.cart.quantity);
+
   return (
     <Container>
       <Wrapper>
@@ -73,17 +77,22 @@ const Navbar = () => {
             <SearchIcon style={{ color: "gray", fontSize: 18 }} />
           </SearchContainer>
         </Left>
-        <Center>
-          <Logo>QHShop</Logo>
-        </Center>
+        <Link style={{ textDecoration: "none", color: "black" }} to="/">
+          <Center>
+            <Logo>QHShop</Logo>
+          </Center>
+        </Link>
+
         <Right>
           <MenuItem>REGISTER</MenuItem>
           <MenuItem>SIGN IN</MenuItem>
-          <MenuItem>
-            <Badge badgeContent={4} color="primary">
-              <ShoppingCartIcon />
-            </Badge>
-          </MenuItem>
+          <Link to="/cart">
+            <MenuItem>
+              <Badge badgeContent={quantity} color="primary">
+                <ShoppingCartIcon />
+              </Badge>
+            </MenuItem>
+          </Link>
           <MenuItem>
             <Badge badgeContent={4} color="primary">
               <FavoriteBorderIcon />

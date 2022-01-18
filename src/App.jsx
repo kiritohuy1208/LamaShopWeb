@@ -10,10 +10,12 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import ScrollToTop from "./ScrollTop";
 const App = () => {
   const user = true;
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         <Route path="/" exact element={<Home />} />
         <Route path="/products/:category" element={<ProductList />} />

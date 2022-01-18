@@ -9,6 +9,9 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import { mobile } from "../responsive";
 import { useLocation } from "react-router-dom";
 import { publishRequest } from "../config";
+//Redux
+import { addProduct } from "../Redux/CartRedux";
+import { useDispatch } from "react-redux";
 const Container = styled.div``;
 const Wrapper = styled.div`
   padding: 50px;
@@ -122,6 +125,9 @@ const Product = () => {
   const [quantity, setQuantity] = useState(1);
   const [color, setColor] = useState("");
   const [size, setSize] = useState("");
+
+  const dispatch = useDispatch();
+
   const getProductDetail = async () => {
     const res = await publishRequest.get(`/api/product/find/${productId}`);
     setProduct(res.data);
@@ -136,9 +142,13 @@ const Product = () => {
       setQuantity(quantity + 1);
     }
   };
+
+  const handleAddToCart = () => {
+    dispatch(addProduct({ ...product, quantity, color, size }));
+  };
   useEffect(() => {
-    console.log(color);
-  }, [color]);
+    console.log(size);
+  }, [size]);
 
   return (
     <Container>
@@ -182,7 +192,7 @@ const Product = () => {
                 <AddIcon />
               </IconContainer>
             </AmountContainer>
-            <Button>ADD TO CART</Button>
+            <Button onClick={handleAddToCart}>ADD TO CART</Button>
           </AddContainer>
         </InfoContainer>
       </Wrapper>
