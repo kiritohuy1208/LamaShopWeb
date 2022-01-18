@@ -2,6 +2,7 @@ import styled from "styled-components";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import SearchIcon from "@mui/icons-material/Search";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import { Link } from "react-router-dom";
 
 const Infor = styled.div`
   position: absolute;
@@ -24,6 +25,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
+  flex-direction: column;
   //background-color: #f5fbfd;
   // opacity: 0;
   background-color: whitesmoke;
@@ -41,6 +43,15 @@ const Circle = styled.div`
 const Image = styled.img`
   height: 75%;
   z-index: 2;
+`;
+const InfoPro = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100px;
+`;
+const ProductName = styled.span``;
+const Price = styled.span`
+  font-weight: bold;
 `;
 
 const Icon = styled.div`
@@ -65,12 +76,19 @@ const Product = ({ product }) => {
     <Container>
       <Circle />
       <Image src={product.img} />
+      <InfoPro>
+        <ProductName>{product.title}</ProductName>
+        <Price>{"$" + product.price}</Price>
+      </InfoPro>
+
       <Infor>
         <Icon>
           <AddShoppingCartIcon />
         </Icon>
         <Icon>
-          <SearchIcon />
+          <Link style={{ color: "black" }} to={`/product/${product._id}`}>
+            <SearchIcon />
+          </Link>
         </Icon>
         <Icon>
           <FavoriteBorderIcon />

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
@@ -7,6 +7,8 @@ import Newsletter from "../components/Newsletter";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { mobile } from "../responsive";
+import { useLocation } from "react-router-dom";
+import { publishRequest } from "../config";
 const Container = styled.div``;
 const Wrapper = styled.div`
   padding: 50px;
@@ -114,49 +116,69 @@ const Button = styled.button`
   }
 `;
 const Product = () => {
+  const location = useLocation();
+  const productId = location.pathname.split("/")[2];
+  const [product, setProduct] = useState({});
+  const [quantity, setQuantity] = useState(1);
+  const [color, setColor] = useState("");
+  const [size, setSize] = useState("");
+  const getProductDetail = async () => {
+    const res = await publishRequest.get(`/api/product/find/${productId}`);
+    setProduct(res.data);
+  };
+  useEffect(() => {
+    getProductDetail();
+  }, [productId]);
+  const handleQuantity = (name) => {
+    if (name === "RemoveIcon") {
+      setQuantity(quantity > 1 ? quantity - 1 : 1);
+    } else {
+      setQuantity(quantity + 1);
+    }
+  };
+  useEffect(() => {
+    console.log(color);
+  }, [color]);
+
   return (
     <Container>
       <Navbar />
       <Announcement />
       <Wrapper>
         <ImageContainer>
-          <Image src="https://i.ibb.co/S6qMxwr/jean.jpg" />
+          <Image src={product.img} />
         </ImageContainer>
         <InfoContainer>
-          <Title>Denim Jumpsuit</Title>
-          <Desc>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-            venenatis, dolor in finibus malesuada, lectus ipsum porta nunc, at
-            iaculis arcu nisi sed mauris. Nulla fermentum vestibulum ex, eget
-            tristique tortor pretium ut. Curabitur elit justo, consequat id
-            condimentum ac, volutpat ornare.
-          </Desc>
-          <Price>$ 20</Price>
+          <Title>{product.title}</Title>
+          <Desc>{product.desc}</Desc>
+          <Price>$ {product.price}</Price>
           <FilterContainer>
             <Filter>
               <FilterTitle>Color</FilterTitle>
-              <FilterColor color="black" />
-              <FilterColor color="darkblue" />
-              <FilterColor color="gray" />
+              {product.color?.map((color) => (
+                <FilterColor
+                  key={color}
+                  color={color}
+                  onClick={() => setColor(color)}
+                ></FilterColor>
+              ))}
             </Filter>
-            <Filter>
+            <Filter onChange={(e) => setSize(e.target.value)}>
               <FilterTitle>Size</FilterTitle>
               <FilterSize>
-                <FilterSizeOption>XS</FilterSizeOption>
-                <FilterSizeOption>S</FilterSizeOption>
-                <FilterSizeOption>M</FilterSizeOption>
-                <FilterSizeOption>L</FilterSizeOption>
-                <FilterSizeOption>XL</FilterSizeOption>
+                {product.size?.map((size) => (
+                  <FilterSizeOption key={size}> {size}</FilterSizeOption>
+                ))}
               </FilterSize>
             </Filter>
           </FilterContainer>
           <AddContainer>
             <AmountContainer>
-              <IconContainer>
+              <IconContainer onClick={() => handleQuantity("RemoveIcon")}>
                 <RemoveIcon />
               </IconContainer>
-              <Amount>1</Amount>
-              <IconContainer>
+              <Amount>{quantity}</Amount>
+              <IconContainer onClick={handleQuantity}>
                 <AddIcon />
               </IconContainer>
             </AmountContainer>
